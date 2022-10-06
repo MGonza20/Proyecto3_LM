@@ -64,7 +64,7 @@ def t_error( t ):
 
 lexer = lex.lex()
 
-G = nx.Graph()
+G = nx.DiGraph()
 
 def p_expression_term(p):
     'expression : term'
@@ -152,7 +152,7 @@ precedence = (
         ( 'left', 'AND', 'OR' )
     )
 
-def createTree(input):
+def createTree(input, G):
 
     # input = "p o ((p ^ q) o z)"
     # Give the lexer some input
@@ -182,8 +182,11 @@ menu()
 option = int(input('Elija una opción: '))
 while option != 2:
     if option == 1:
+        incr.value = 0
+        labelsDict = {}
+        G = nx.DiGraph()
         user_input = str(input('Ingrese expresión: ')) 
-        createTree(user_input)
+        createTree(user_input, G)
     else: print('\nOpcion invalida\n')
 
     menu()
