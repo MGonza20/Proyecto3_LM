@@ -141,7 +141,7 @@ precedence = (
     ( 'left', 'AND', 'OR' )
 )
 
-input = "p o ((p ^ q) o z)"
+input = "p => ((p ^ q) o z)"
 
 # Give the lexer some input
 lexer.input(input)
