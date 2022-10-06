@@ -64,7 +64,7 @@ def t_error( t ):
 
 lexer = lex.lex()
 
-G = nx.Graph()
+G = nx.DiGraph()
 
 def p_expression_term(p):
     'expression : term'
@@ -95,20 +95,31 @@ def p_expression_or(p):
 
 def p_not_expression(p):
     'expression : NOT expression'
-    # Crear el nodo y dibujar un camino entre su leftChild
     p[0] = Node(value="~", leftChild=p[2], id=incr.value)
+    # Crear el nodo y dibujar un camino entre su leftChild
+    G.add_node(incr.value)
+    labelsDict[incr.value] = p[0].value
+    G.add_edge(p[0].id, p[0].leftChild.id)
     incr.increment()
 
 def p_expression_implication(p):
     'expression : expression IMP expression'
     p[0] = Node(value="=>", leftChild=p[1], rightChild=p[3], id=incr.value)
     # Crear el nodo y dibujar un camino entre su leftChild y rightChild
+    G.add_node(incr.value)
+    labelsDict[incr.value] = p[0].value
+    G.add_edge(p[0].id, p[0].leftChild.id)
+    G.add_edge(p[0].id, p[0].rightChild.id)
     incr.increment()
 
 def p_expression_dimplication(p):
     'expression : expression DIMP expression'
     p[0] = Node(value="<=>", leftChild=p[1], rightChild=p[3], id=incr.value)
     # Crear el nodo y dibujar un camino entre su leftChild y rightChild
+    G.add_node(incr.value)
+    labelsDict[incr.value] = p[0].value
+    G.add_edge(p[0].id, p[0].leftChild.id)
+    G.add_edge(p[0].id, p[0].rightChild.id)
     incr.increment()
 
 def p_term_factor(p):
@@ -137,27 +148,44 @@ def p_error(p):
     print("Syntax error in input!", p)
 
 precedence = (
-    ( 'left', 'IMP', 'DIMP' ),
-    ( 'left', 'AND', 'OR' )
-)
+        ( 'left', 'IMP', 'DIMP' ),
+        ( 'left', 'AND', 'OR' )
+    )
 
-input = "p => ((p ^ q) o z)"
+def createTree(input, G):
 
-# Give the lexer some input
-lexer.input(input)
+    # input = "p o ((p ^ q) o z)"
+    # Give the lexer some input
+    lexer.input(input)
+
+    # Tokenize
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break      # No more input
+        print(tok)
+    print("-- Creando Arbol-- ")
+    parser = yacc.yacc()
+    result = parser.parse(input)
+    nx.draw_shell(G, nlist=[range(5, 10), range(5)], font_weight='bold', with_labels=True, labels=labelsDict)
+
+    plt.show()
 
 
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break      # No more input
-    print(tok)
-print("-- Creando Arbol-- ")
-parser = yacc.yacc()
-result = parser.parse(input)
+def menu():
+    print('\nProyecto 3 - Lógica matemática\n\nOpciones:\n1. Crear árbol \
+           \n2. Salir \n')
 
+menu()
+option = int(input('Elija una opción: '))
+while option != 2:
+    if option == 1:
+        incr.value = 0
+        labelsDict = {}
+        G = nx.DiGraph()
+        user_input = str(input('Ingrese expresión: ')) 
+        createTree(user_input, G)
+    else: print('\nOpcion invalida\n')
 
-nx.draw_shell(G, nlist=[range(5, 10), range(5)], font_weight='bold', with_labels=True, labels=labelsDict)
-
-plt.show()
+    menu()
+    option = int(input('Elija una opción: '))

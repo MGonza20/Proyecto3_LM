@@ -6,12 +6,12 @@
   - expression => term
   - term => factor
   - factor => VARIABLE
+  - factor => LPAREN expression RPAREN
   - VARIABLE => p|q|r|s|t|u|v|w|x|y|z|1|0
   - expression => expression DIMP expression
   - expression => expression IMP expression
   - expression => NOT expression
   - expression => expression OR term
   - expression => expression AND term
-  - factor => LPAREN expression RPAREN
 
  
