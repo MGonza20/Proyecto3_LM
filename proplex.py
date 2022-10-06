@@ -115,7 +115,7 @@ precedence = (
     ( 'left', 'AND', 'OR' )
 )
 
-input = "~~p"
+input = "p^q"
 
 # Give the lexer some input
 lexer.input(input)
