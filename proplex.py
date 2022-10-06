@@ -64,25 +64,30 @@ def p_expression_term(p):
 def p_expression_and(p):
     'expression : expression AND term'
     p[0] = Node(value="^", leftChild=p[1], rightChild=p[3])
+    # Crear el nodo y dibujar un camino entre su leftChild y rightChild
     print(p[0].rightChild.value)
 
 def p_expression_or(p):
     'expression : expression OR term'
     p[0] = Node(value="o", leftChild=p[1], rightChild=p[3])
+    # Crear el nodo y dibujar un camino entre su leftChild y rightChild
     print(p[0].rightChild.value)
 
 def p_not_expression(p):
     'expression : NOT expression'
+    # Crear el nodo y dibujar un camino entre su leftChild
     p[0] = Node(value="~", leftChild=p[2])
 
 
 def p_expression_implication(p):
     'expression : expression IMP expression'
     p[0] = Node(value="=>", leftChild=p[1], rightChild=p[3])
+    # Crear el nodo y dibujar un camino entre su leftChild y rightChild
 
 def p_expression_dimplication(p):
     'expression : expression DIMP expression'
     p[0] = Node(value="=>", leftChild=p[1], rightChild=p[3])
+    # Crear el nodo y dibujar un camino entre su leftChild y rightChild
 
 
 def p_term_factor(p):
@@ -92,6 +97,7 @@ def p_term_factor(p):
 def p_factor_num(p):
     'factor : VARIABLE'
     p[0] = Node(value=p[1])
+    # Crear un nuevo nodo
 #
 # def p_factor_num(p):
 #     'factor : CONST'
