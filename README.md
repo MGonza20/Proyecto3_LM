@@ -1,6 +1,6 @@
 ## Diagrama de máquina de estado finito
 
-![AFD](https://user-images.githubusercontent.com/64711979/194376349-2d5c9b30-2566-420d-9db7-12a5c66058ed.png)
+![AFD](https://user-images.githubusercontent.com/64711979/194398145-cabd82c8-34d3-47d8-a469-ad69632781f9.png)
 
 ## Producciones
 
@@ -47,11 +47,17 @@ ________
 - 0 -> z 
 - 0 -> 1
 - 0 -> 0 
+________
+- 0 -> (10
+- 0 -> (
+________
+- 0 -> )11
+- 0 -> )
 
 ## Componentes de la Gramática
 
-- N = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-- T = {~, ^, <, =, >, p, q, r, s, t, u, v, w, x, y, z, 1, 0}
+- N = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+- T = {~, ^, <, =, >, (, ), p, q, r, s, t, u, v, w, x, y, z, 1, 0}
 - S = 0
 
 ## Representación de elementos en el código
