@@ -2,6 +2,24 @@
 
 ![AFD](https://user-images.githubusercontent.com/64711979/194398145-cabd82c8-34d3-47d8-a469-ad69632781f9.png)
 
+
+## Componentes de la Gramatica
+- T = {p,q,r,s,t,u,v,w,x,y,z,1,0}
+- NT = {LPAREN,RPAREN,NOT,IM,OR,AND,DIMP, factor, VARIABLE, expression, term}
+- S = expression
+- P:
+  - expression => term
+  - term => factor
+  - factor => VARIABLE
+  - factor => LPAREN expression RPAREN
+  - VARIABLE => p|q|r|s|t|u|v|w|x|y|z|1|0
+  - expression => expression DIMP expression
+  - expression => expression IMP expression
+  - expression => NOT expression
+  - expression => expression OR term
+  - expression => expression AND term
+
+
 ## Producciones
 
 
