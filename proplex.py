@@ -76,6 +76,10 @@ def p_expression_and(p):
     'expression : expression AND term'
     p[0] = Node(value="^", leftChild=p[1], rightChild=p[3], id=incr.value)
     # Crear el nodo y dibujar un camino entre su leftChild y rightChild
+    G.add_node(incr.value)
+    labelsDict[incr.value] = p[0].value
+    G.add_edge(p[0].id, p[0].leftChild.id)
+    G.add_edge(p[0].id, p[0].rightChild.id)
     incr.increment()
 
 def p_expression_or(p):
@@ -103,7 +107,7 @@ def p_expression_implication(p):
 
 def p_expression_dimplication(p):
     'expression : expression DIMP expression'
-    p[0] = Node(value="=>", leftChild=p[1], rightChild=p[3], id=incr.value)
+    p[0] = Node(value="<=>", leftChild=p[1], rightChild=p[3], id=incr.value)
     # Crear el nodo y dibujar un camino entre su leftChild y rightChild
     incr.increment()
 
@@ -137,7 +141,7 @@ precedence = (
     ( 'left', 'AND', 'OR' )
 )
 
-input = "(qop) o p"
+input = "p o ((p ^ q) o z)"
 
 # Give the lexer some input
 lexer.input(input)
